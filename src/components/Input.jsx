@@ -1,13 +1,20 @@
-const Input = () => {
+const Input = ({ onExpense, onIncome, selectOption }) => {
   return (
     <section className="mt-5">
-
       <form className="mt-3" aria-label="Expense Tracker Form">
         <div className="bg-sky-600 flex justify-around text-white text-[17px] rounded-[3px]">
-          <button type="button" className="bg-red-300 w-1/2 p-2">
+          <button
+            onClick={() => onExpense("expense")}
+            type="button"
+            className="bg-red-300 w-1/2 p-2"
+          >
             Expense
           </button>
-          <button type="button" className="bg-green-300 w-1/2 p-2">
+          <button
+            onClick={() => onIncome("income")}
+            type="button"
+            className="bg-green-300 w-1/2 p-2"
+          >
             Income
           </button>
         </div>
@@ -16,19 +23,33 @@ const Input = () => {
           <label htmlFor="category" className="text-gray-700 font-medium">
             Category
           </label>
-          <select
-            id="category"
-            className="border-2 w-full border-transparent focus:border-sky-500 bg-slate-200 px-3 py-2 rounded-[3px]"
-          >
-            <option value="">Select the option</option>
-            <option value="Education">Education</option>
-            <option value="Food">Food</option>
-            <option value="Health">Health</option>
-            <option value="Bill">Bill</option>
-            <option value="Insurance">Insurance</option>
-            <option value="Tax">Tax</option>
-            <option value="Transport">Transport</option>
-          </select>
+
+          {selectOption === "expense" ? (
+            <select
+              id="category"
+              className="border-2 w-full border-transparent focus:border-sky-500 bg-slate-200 px-3 py-2 rounded-[3px]"
+            >
+              <option value="">Select the expense option</option>
+              <option value="Education">Education</option>
+              <option value="Food">Food</option>
+              <option value="Health">Health</option>
+              <option value="Bill">Bill</option>
+              <option value="Insurance">Insurance</option>
+              <option value="Tax">Tax</option>
+              <option value="Transport">Transport</option>
+            </select>
+          ) : (
+            <select
+              id="category"
+              className="border-2 w-full border-transparent focus:border-sky-500 bg-slate-200 px-3 py-2 rounded-[3px]"
+            >
+              <option value="">Select the income option</option>
+              <option value="Education">Salary</option>
+              <option value="Food">Outsourcing</option>
+              <option value="Health">Bond</option>
+              <option value="Bill">Dividend</option>
+            </select>
+          )}
 
           <label htmlFor="amount" className="text-gray-700 font-medium">
             Amount
