@@ -4,7 +4,7 @@ import { MdModeEditOutline } from "react-icons/md";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import { FaFilter } from "react-icons/fa6";
 
-const Expense = ({ expenseData, onExpenseDelete }) => {
+const Expense = ({ expenseData, onExpenseDelete, onExpenseSort }) => {
   return (
     <section className="bg-gray-100 ps-3 py-3 pe-2 border-1 border-slate-200 rounded-[3px]">
       <div className=" flex justify-between">
@@ -13,7 +13,7 @@ const Expense = ({ expenseData, onExpenseDelete }) => {
           <p className="text-xl font-semibold text-gray-800">Expense</p>
         </div>
         <div className="flex gap-2">
-          <button>
+          <button onClick={onExpenseSort}>
             <RiSortDesc className=" text-xl" />
           </button>
           <button>
@@ -50,7 +50,9 @@ const Expense = ({ expenseData, onExpenseDelete }) => {
             </li>
           ))
         ) : (
-          <p className="text-gray-600 text-center mt-5 text-2xl ">No data found 😟</p>
+          <p className="text-gray-600 text-center mt-5 text-2xl ">
+            No data found 😟
+          </p>
         )}
       </ul>
     </section>

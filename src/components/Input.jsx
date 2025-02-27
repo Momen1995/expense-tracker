@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Input = ({
   onAdd,
@@ -14,31 +14,17 @@ const Input = ({
     title: "",
   });
 
-  // function handleIncomeSelect() {
-  //   const newId = crypto.randomUUID();
-  //   setSelectOption("income");
-
-  //   setInputData({
-  //     id: newId,
-  //     category: "income",
-  //     amount: "",
-  //     date: "",
-  //     title: "",
-  //   });
-  // }
-
-  // function handleExpenseSelect() {
-  //   const newId = crypto.randomUUID();
-  //   setSelectOption("expense");
-
-  //   setInputData({
-  //     id: newId,
-  //     category: "expense",
-  //     amount: "",
-  //     date: "",
-  //     title: "",
-  //   });
-  // }
+  // Generate a new ID whenever selectOption changes
+  useEffect(() => {
+    setInputData((prev) => ({
+      ...prev,
+      id: crypto.randomUUID(),
+      category: selectOption,
+      title: "",
+      amount: "",
+      date: "",
+    }));
+  }, [selectOption]);
 
   function handleChange(e) {
     const { name, value } = e.target;

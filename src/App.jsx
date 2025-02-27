@@ -9,16 +9,36 @@ const App = () => {
   const [incomeData, setIncomeData] = useState(findIncomeData(initialData));
   const [expenseData, setExpenseData] = useState(findExpenseData(initialData));
   const [selectOption, setSelectOption] = useState("expense");
-  const [totalBalance, setTotalBalance] = useState(0);
-  const [totalIncome, setTotalIncome] = useState(0);
-  const [totalExpense, setTotalExpense] = useState(0);
+  const [totalBalance, setTotalBalance] = useState(400);
+  const [totalIncome, setTotalIncome] = useState(700);
+  const [totalExpense, setTotalExpense] = useState(300);
+  const [isIncomeSortedAsc, setIsIncomeSortedAsc] = useState(false);
+  const [isExpenseSortedAsc, setIsExpenseSortedAsc] = useState(false);
 
-  function handleIncomeSelect(text) {
-    setSelectOption(text);
+  // Update Balances
+  function updateBalances(
+    updatedIncome = incomeData,
+    updatedExpense = expenseData
+  ) {
+    const totalIncomeBalance = updatedIncome.reduce(
+      (acc, item) => acc + Number(item.amount),
+      0
+    );
+    const totalExpenseBalance = updatedExpense.reduce(
+      (acc, item) => acc + Number(item.amount),
+      0
+    );
+    setTotalIncome(totalIncomeBalance);
+    setTotalExpense(totalExpenseBalance);
+    setTotalBalance(totalIncomeBalance - totalExpenseBalance);
   }
 
-  function handleExpenseSelect(text) {
-    setSelectOption(text);
+  function handleIncomeSelect() {
+    setSelectOption("income");
+  }
+
+  function handleExpenseSelect() {
+    setSelectOption("expense");
   }
 
   function handleAddData(newData, e) {
@@ -26,45 +46,47 @@ const App = () => {
 
     if (selectOption === "income") {
       const updatedData = [...incomeData, newData];
-
-      //calculate income balance
-      const totalIncomeBalance = updatedData.reduce(
-        (acc, item) => acc + Number(item.amount),
-        0
-      );
-
-      //calculate total balance
-      const calcTotalBalance = totalBalance + totalIncomeBalance;
-
-      setIncomeData([...incomeData, newData]);
-      setTotalIncome(totalIncomeBalance);
-      setTotalBalance(calcTotalBalance);
+      setIncomeData(updatedData);
+      updateBalances(updatedData, expenseData);
     } else {
       const updatedData = [...expenseData, newData];
-
-      //calculate expense balance
-      const totalExpenseBalance = updatedData.reduce(
-        (acc, item) => acc + Number(item.amount),
-        0
-      );
-
-      //calculate total balance
-      const calcTotalBalance = totalBalance - totalExpenseBalance;
-
       setExpenseData(updatedData);
-      setTotalExpense(totalExpenseBalance);
-      setTotalBalance(calcTotalBalance);
+      updateBalances(incomeData, updatedData);
     }
   }
 
-  function handleIncomeDeleteItem(itemId){
-    const filterItem = incomeData.filter(item => item.id !== itemId);
-    setIncomeData(filterItem)
+  // Income Delete
+  function handleIncomeDeleteItem(itemId) {
+    const updatedIncome = incomeData.filter((item) => item.id !== itemId);
+    setIncomeData(updatedIncome);
+    updateBalances(updatedIncome, expenseData);
   }
 
-  function handleExpenseDeleteItem(itemId){
-    const filterItem = expenseData.filter(item => item.id !== itemId);
-    setExpenseData(filterItem)
+  // Expense Delete
+  function handleExpenseDeleteItem(itemId) {
+    const updatedExpense = expenseData.filter((item) => item.id !== itemId);
+    setExpenseData(updatedExpense);
+    updateBalances(incomeData, updatedExpense);
+  }
+
+  // Income Sort (Toggle)
+  function handleIncomeSortData() {
+    const sortedIncome = [...incomeData].sort((a, b) =>
+      isIncomeSortedAsc ? a.amount - b.amount : b.amount - a.amount
+    );
+    setIncomeData(sortedIncome);
+    setIsIncomeSortedAsc(!isIncomeSortedAsc);
+    updateBalances(sortedIncome, expenseData);
+  }
+
+  // Expense Sort (Toggle)
+  function handleExpenseSortData() {
+    const sortedExpense = [...expenseData].sort((a, b) =>
+      isExpenseSortedAsc ? a.amount - b.amount : b.amount - a.amount
+    );
+    setExpenseData(sortedExpense);
+    setIsExpenseSortedAsc(!isExpenseSortedAsc);
+    updateBalances(incomeData, sortedExpense);
   }
 
   return (
@@ -85,6 +107,8 @@ const App = () => {
           totalBalance={totalBalance}
           onIncomeDelete={handleIncomeDeleteItem}
           onExpenseDelete={handleExpenseDeleteItem}
+          onItemSort={handleIncomeSortData}
+          onExpenseSort={handleExpenseSortData}
         />
       </main>
       <Footer />

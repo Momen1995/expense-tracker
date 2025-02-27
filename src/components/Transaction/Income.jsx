@@ -4,7 +4,7 @@ import { MdModeEditOutline } from "react-icons/md";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import { FaFilter } from "react-icons/fa6";
 
-const Income = ({ incomeData, onIncomeDelete }) => {
+const Income = ({ incomeData, onIncomeDelete, onItemSort }) => {
   return (
     <section className="bg-gray-100 ps-3 py-3 pe-2 border-1 border-slate-200 rounded-[3px]">
       {/* Header Section */}
@@ -14,7 +14,7 @@ const Income = ({ incomeData, onIncomeDelete }) => {
           <p className="text-xl font-semibold text-gray-800">Income</p>
         </div>
         <div className="flex gap-2">
-          <button>
+          <button onClick={onItemSort}>
             <RiSortDesc className=" text-xl" />
           </button>
           <button>
