@@ -1,7 +1,11 @@
 import Input from "./Input";
 
-const Form = ({  onAdd }) => {
-  
+const Form = ({
+  onAdd,
+  selectOption,
+  handleIncomeSelect,
+  handleExpenseSelect,
+}) => {
   return (
     <>
       <div className="w-1/3 border-gray-200 border-2 px-3 pt-3 py-1 rounded-[3px] bg-gray-100">
@@ -11,8 +15,10 @@ const Form = ({  onAdd }) => {
         </p>
 
         <Input
-          
+          selectOption={selectOption}
           onAdd={onAdd}
+          handleIncomeSelect={handleIncomeSelect}
+          handleExpenseSelect={handleExpenseSelect}
         />
       </div>
     </>

@@ -1,44 +1,52 @@
 import { useState } from "react";
 
-const Input = ({ onAdd }) => {
-  const [selectOption, setSelectOption] = useState("expense");
-  console.log(selectOption);
+const Input = ({
+  onAdd,
+  selectOption,
+  handleExpenseSelect,
+  handleIncomeSelect,
+}) => {
   const [inputData, setInputData] = useState({
     id: crypto.randomUUID(),
-    category: selectOption === "income" ? "income" : "expense",
+    category: selectOption === "expense" ? "expense" : "income",
     amount: "",
     date: "",
     title: "",
   });
 
-  function handleIncomeSelect() {
-    setSelectOption("income");
+  // function handleIncomeSelect() {
+  //   const newId = crypto.randomUUID();
+  //   setSelectOption("income");
 
-    setInputData((preInputData =>({
-      ...preInputData,
-      category : "income"
-    })))
-  }
+  //   setInputData({
+  //     id: newId,
+  //     category: "income",
+  //     amount: "",
+  //     date: "",
+  //     title: "",
+  //   });
+  // }
 
-  function handleExpenseSelect() {
-    setSelectOption("expense");
+  // function handleExpenseSelect() {
+  //   const newId = crypto.randomUUID();
+  //   setSelectOption("expense");
 
-    setInputData((preInputData) => ({
-      ...preInputData,
-      category: "expense",
-    }));
-  }
+  //   setInputData({
+  //     id: newId,
+  //     category: "expense",
+  //     amount: "",
+  //     date: "",
+  //     title: "",
+  //   });
+  // }
 
   function handleChange(e) {
-    e.preventDefault();
     const { name, value } = e.target;
-
     setInputData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   }
-  console.log(inputData);
 
   return (
     <section className="mt-5">
