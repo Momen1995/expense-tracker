@@ -14,6 +14,8 @@ const TransactionBoard = ({
   onExpenseDelete,
   onItemSort,
   onExpenseSort,
+  onItemFilter,
+ 
 }) => {
   return (
     <div className="w-2/3 flex flex-col gap-5">
@@ -27,6 +29,8 @@ const TransactionBoard = ({
           incomeData={incomeData}
           onIncomeDelete={onIncomeDelete}
           onItemSort={onItemSort}
+          onItemFilter={onItemFilter}
+         
         />
         <Expense
           expenseData={expenseData}

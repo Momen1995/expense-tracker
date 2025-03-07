@@ -4,6 +4,16 @@ import { MdModeEditOutline } from "react-icons/md";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import { FaFilter } from "react-icons/fa6";
 
+const formatDateTime = (dateString) => {
+  return new Date(dateString).toLocaleString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+};
+
 const Expense = ({ expenseData, onExpenseDelete, onExpenseSort }) => {
   return (
     <section className="bg-gray-100 ps-3 py-3 pe-2 border-1 border-slate-200 rounded-[3px]">
@@ -31,12 +41,12 @@ const Expense = ({ expenseData, onExpenseDelete, onExpenseSort }) => {
             >
               <div>
                 <p className="text-xl font-semibold">${item.title}</p>
-                <span className="text-xs">{item.date}</span>
+                <span className="text-xs">{formatDateTime(item.date)}</span>
               </div>
               <div className="flex gap-3 justify-center items-center">
                 <p>{item.amount}$</p>
                 <div className="flex gap-2">
-                  <button className="bg-sky-400 p-.5 rounded-[2px]">
+                  <button className="bg-sky-400 p-1 rounded-[2px]">
                     <MdModeEditOutline className="text-xl" />
                   </button>
                   <button

@@ -69,7 +69,7 @@ const App = () => {
     updateBalances(incomeData, updatedExpense);
   }
 
-  // Income Sort (Toggle)
+  // Income Sort 
   function handleIncomeSortData() {
     const sortedIncome = [...incomeData].sort((a, b) =>
       isIncomeSortedAsc ? a.amount - b.amount : b.amount - a.amount
@@ -79,7 +79,7 @@ const App = () => {
     updateBalances(sortedIncome, expenseData);
   }
 
-  // Expense Sort (Toggle)
+  // Expense Sort 
   function handleExpenseSortData() {
     const sortedExpense = [...expenseData].sort((a, b) =>
       isExpenseSortedAsc ? a.amount - b.amount : b.amount - a.amount
@@ -88,6 +88,10 @@ const App = () => {
     setIsExpenseSortedAsc(!isExpenseSortedAsc);
     updateBalances(incomeData, sortedExpense);
   }
+
+  
+
+
 
   return (
     <div className="w-10/12 mx-auto">
@@ -109,6 +113,7 @@ const App = () => {
           onExpenseDelete={handleExpenseDeleteItem}
           onItemSort={handleIncomeSortData}
           onExpenseSort={handleExpenseSortData}
+          
         />
       </main>
       <Footer />

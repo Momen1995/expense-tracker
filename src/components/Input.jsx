@@ -14,17 +14,22 @@ const Input = ({
     title: "",
   });
 
-  // Generate a new ID whenever selectOption changes
-  useEffect(() => {
-    setInputData((prev) => ({
-      ...prev,
-      id: crypto.randomUUID(),
-      category: selectOption,
-      title: "",
-      amount: "",
-      date: "",
-    }));
-  }, [selectOption]);
+ 
+ useEffect(() => {
+   setInputData((prev) => {
+     const defaultTitle = selectOption === "expense" ? "Education" : "Salary"; 
+
+     return {
+       ...prev,
+       id: crypto.randomUUID(),
+       category: selectOption,
+       title: defaultTitle, 
+       amount: "",
+       date: "",
+     };
+   });
+ }, [selectOption]);
+
 
   function handleChange(e) {
     const { name, value } = e.target;
